@@ -106,6 +106,16 @@ fprintf('\n');
 % not need to be normalized.
 price = 0; % You should change this
 
+x = [1650, 3] ;
+
+% scale features
+x_norm = x .-mu ;
+x_norm = x_norm ./sigma ;
+
+% Add intercept term to X
+x = [ones(1, 1) x_norm];
+
+price = x * theta ;
 
 % ============================================================
 
@@ -135,6 +145,8 @@ X = data(:, 1:2);
 y = data(:, 3);
 m = length(y);
 
+% There is no need to do feature scaling with the normal equation.
+
 % Add intercept term to X
 X = [ones(m, 1) X];
 
@@ -151,9 +163,16 @@ fprintf('\n');
 % ====================== YOUR CODE HERE ======================
 price = 0; % You should change this
 
+% don't use from previous prediction (that one is scaled and here we don't want that)
+x = [1650, 3] ;
+
+% don't scale features!
+
+% Add intercept term to X
+x = [ones(1, 1) x];
+price = x * theta ;
 
 % ============================================================
 
 fprintf(['Predicted price of a 1650 sq-ft, 3 br house ' ...
          '(using normal equations):\n $%f\n'], price);
-
