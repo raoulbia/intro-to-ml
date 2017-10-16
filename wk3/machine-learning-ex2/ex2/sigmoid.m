@@ -10,6 +10,10 @@ g = zeros(size(z));
 %               vector or scalar).
 
 
+g = ones(size(z)) ;
+
+g = 1 ./ (1 + exp(-1 * z)) ;
+
 
 
 

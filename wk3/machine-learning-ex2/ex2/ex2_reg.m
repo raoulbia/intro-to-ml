@@ -89,6 +89,7 @@ fprintf(' %f \n', grad(1:5));
 fprintf('Expected gradients (approx) - first five values only:\n');
 fprintf(' 0.3460\n 0.1614\n 0.1948\n 0.2269\n 0.0922\n');
 
+
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
 
@@ -115,7 +116,6 @@ options = optimset('GradObj', 'on', 'MaxIter', 400);
 % Optimize
 [theta, J, exit_flag] = ...
 	fminunc(@(t)(costFunctionReg(t, X, y, lambda)), initial_theta, options);
-
 % Plot Boundary
 plotDecisionBoundary(theta, X, y);
 hold on;

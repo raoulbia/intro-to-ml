@@ -31,7 +31,7 @@ X = data(:, [1, 2]); y = data(:, 3);
 %  the problem we are working with.
 
 fprintf(['Plotting data with + indicating (y = 1) examples and o ' ...
-         'indicating (y = 0) examples.\n']);
+          'indicating (y = 0) examples.\n']);
 
 plotData(X, y);
 

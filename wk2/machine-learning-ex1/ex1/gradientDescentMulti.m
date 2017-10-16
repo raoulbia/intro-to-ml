@@ -18,20 +18,10 @@ for iter = 1:num_iters
     %       of the cost function (computeCostMulti) and gradient here.
     %
 
-    %predictions = X * theta ;
-    %errors = predictions - y ;
-    %tmp = zeros(1, n) ;
-    %for i = 1:n
-    %    tmp(i) = theta(i) - (alpha * errors' * X(:,i)) / m ;
-    %end
-    %theta = tmp' ;
-
-    predictions = X * theta ;
-    error = predictions - y ;
-    theta = theta - ( alpha * 1/m * error' * X  )' ;
-
-
-
+    prediction = X * theta ;
+    error = prediction - y ;
+    gradient = ( alpha * 1/m * error' * X  )' ;
+    theta = theta -  gradient;
 
 
     % ============================================================

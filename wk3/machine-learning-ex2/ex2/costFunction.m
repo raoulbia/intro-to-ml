@@ -1,4 +1,5 @@
 function [J, grad] = costFunction(theta, X, y)
+
 %COSTFUNCTION Compute cost and gradient for logistic regression
 %   J = COSTFUNCTION(theta, X, y) computes the cost of using theta as the
 %   parameter for logistic regression and the gradient of the cost
@@ -20,8 +21,12 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+predictions = sigmoid(X * theta) ;
 
+J = 1/m * ( -y' * log(predictions) - (1-y') * log(1-predictions) );
 
+%grad = 1 / m * ( (predictions - y)' * X )' ;  % my old version ; double-transpose is avoided in the new solution below
+grad = 1 / m * ( X' * (predictions - y) ) ;
 
 
 

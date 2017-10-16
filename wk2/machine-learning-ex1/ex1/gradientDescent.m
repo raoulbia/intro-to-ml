@@ -18,16 +18,10 @@ for iter = 1:num_iters
     %
 
 
-prediction = X * theta ;
-error = prediction - y ;
-
-%tmp0 = theta(1) - (alpha * error' * X(:,1)) / m ;
-%tmp1 = theta(2) - (alpha * error' * X(:,2)) / m ;
-%theta = [tmp0; tmp1];
-% computeCost(X, y, theta)
-
-% alternative version
-theta = theta - ( alpha * 1/m * error' * X  )' ;
+    prediction = X * theta ;
+    error = prediction - y ;
+    gradient = ( alpha * 1/m * error' * X  )' ;
+    theta = theta -  gradient;
 
 
     % ============================================================
