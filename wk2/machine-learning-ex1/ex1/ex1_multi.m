@@ -113,9 +113,9 @@ x_norm = x .-mu ;
 x_norm = x_norm ./sigma ;
 
 % Add intercept term to X
-x = [ones(1, 1) x_norm];
+x_norm = [ones(1, 1) x_norm];
 
-price = x * theta ;
+price = x_norm * theta ;
 
 % ============================================================
 

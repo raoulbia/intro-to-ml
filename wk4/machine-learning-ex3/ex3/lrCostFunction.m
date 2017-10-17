@@ -38,7 +38,18 @@ grad = zeros(size(theta));
 
 
 
+%n = length(theta) ; % number of features
 
+predictions = sigmoid(X * theta) ;
+
+theta_intercept = theta(1) ;
+theta_rest = theta(2:end) ;
+
+J = 1/m * ( -y' * log(predictions) - (1-y') * log(1-predictions) ) + ( lambda / (2*m) * sum(theta_rest .^2) ) ;
+
+grad_intercept = 1 / m * ( X(:, 1)' * (predictions - y) ) ;
+grad_rest = 1 / m * ( X(:, 2:end)' * (predictions - y) ) + (lambda / m) * theta_rest ;
+grad = [grad_intercept; grad_rest] ;
 
 
 
