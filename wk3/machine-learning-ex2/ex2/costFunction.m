@@ -25,7 +25,6 @@ predictions = sigmoid(X * theta) ;
 
 J = 1/m * ( -y' * log(predictions) - (1-y') * log(1-predictions) );
 
-%grad = 1 / m * ( (predictions - y)' * X )' ;  % my old version ; double-transpose is avoided in the new solution below
 grad = 1 / m * ( X' * (predictions - y) ) ;
 
 

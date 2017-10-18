@@ -49,28 +49,39 @@ X = [ones(m, 1) X];
 %                 initial_theta, options);
 %
 
+% =========================================================================
 
-c = [10,1,2,3,4,5,6,7,8,9] ;
-idx = 1 ;
-for i = c
+% with fmincg
 
-    % Set Initial theta
-    initial_theta = zeros(n + 1, 1) ;
-
-    % Set options for fminunc
-    options = optimset('GradObj', 'on', 'MaxIter', 400);
-
-    % Run fmincg to obtain the optimal theta
-    % This function will return theta and the cost
-
-
+initial_theta = zeros(n + 1, 1) ;
+options = optimset('GradObj', 'on', 'MaxIter', 50) ;
+for i = 1:num_labels
     [theta] = ...
         fmincg (@(t)(lrCostFunction(t, X, (y == i), lambda)), ...
                 initial_theta, options) ;
-    [all_theta(idx, :)] = [theta] ;
-    idx = idx + 1 ;
+
+    % each row of Θ corresponds to the learned logistic regression parameters for one class
+    [all_theta(i, :)] = [theta] ;
 end
 
+
+
+% =========================================================================
+
+% without fmincg (Raoul experiment)
+
+% Choose some alpha value
+%alpha = 0.01;
+%num_iters = 50;
+
+% Init Theta
+%theta = zeros(n + 1, 1) ;
+
+% Run Gradient Descent
+%for i = 1:num_labels
+%    [theta, J_history] = gradientDescentRaoul(X, (y==i), theta, alpha, num_iters, lambda);
+%    [all_theta(i, :)] = [theta] ;
+%end
 
 % =========================================================================
 
