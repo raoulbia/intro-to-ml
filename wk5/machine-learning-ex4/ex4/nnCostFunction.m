@@ -76,10 +76,10 @@ for i = 1:m
     trainingExampleLabel = y(i) ;
 
     % recode the labels as vectors
-    yvec = zeros(num_labels, 1) ;
-    yvec(trainingExampleLabel) = 1 ;
+    y_vec = zeros(num_labels, 1) ;
+    y_vec(trainingExampleLabel) = 1 ;
 
-
+    % Forward Propagation
     a1 = trainingExample' ;
     z2 = Theta1 * a1 ;
     a2 = sigmoid(z2) ;
@@ -87,13 +87,24 @@ for i = 1:m
     z3 = Theta2 * a2 ;
     a3 = sigmoid(z3) ;
 
-    J = J + ( -yvec' * log(a3) - (1-yvec') * log(1-a3) ) ;
+    J = J + ( -y_vec' * log(a3) - (1-y_vec') * log(1-a3) ) ;
 
 endfor
 J = J / m ;
 
+% add regularisation
+J = J + lambda / (2*m) * (sum( sum(Theta1(:, 2:end) .^2)) + sum(sum(Theta2(:, 2:end) .^2)) ) ;
 
+% gradient
+%Theta1_grad = sigmoidGradient(Theta1) ;
+%temp = Theta1 ;
+%temp(1) = 0 ;
+%Theta1_grad = Theta1_grad + (lambda / m) * temp ; % reg term to be added to all gradients
 
+%Theta2_grad = sigmoidGradient(Theta2) ;
+%temp = Theta2 ;
+%temp(1) = 0 ;
+%Theta2_grad = Theta2_grad + (lambda / m) * temp ; % reg term to be added to all gradients
 
 % -------------------------------------------------------------
 
