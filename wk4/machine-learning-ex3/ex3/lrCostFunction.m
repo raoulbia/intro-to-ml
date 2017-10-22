@@ -1,6 +1,8 @@
 function [J, grad] = lrCostFunction(theta, X, y, lambda)
-%LRCOSTFUNCTION Compute cost and gradient for logistic regression with 
-%regularization
+%LRCOSTFUNCTION Compute cost and gradient for logistic regression
+
+% WITH REGULARIZATION
+
 %   J = LRCOSTFUNCTION(theta, X, y, lambda) computes the cost of using
 %   theta as the parameter for regularized logistic regression and the
 %   gradient of the cost w.r.t. to the parameters. 
@@ -40,22 +42,26 @@ grad = zeros(size(theta));
 
 predictions = sigmoid(X * theta) ; 
 
-theta_intercept = theta(1) ;
-theta_rest = theta(2:end) ;
+% solution 1
+%theta_intercept = theta(1) ;
+%theta_rest = theta(2:end) ;
+%J = 1/m * ( -y' * log(predictions) - (1-y') * log(1-predictions) ) + ( lambda / (2*m) * sum(theta_rest .^2) ) ;
+%grad_intercept = 1 / m * ( X(:, 1)' * (predictions - y) ) ;
+%grad_rest = 1 / m * ( X(:, 2:end)' * (predictions - y) ) + (lambda / m) * theta_rest ;
+%grad = [grad_intercept; grad_rest] ;
 
-J = 1/m * ( -y' * log(predictions) - (1-y') * log(1-predictions) ) + ( lambda / (2*m) * sum(theta_rest .^2) ) ;
+% solution 2
+J = 1/m * ( -y' * log(predictions) - (1-y') * log(1-predictions) ) + ( lambda / (2*m) * sum(theta(2:end) .^2) ) ;
 
-grad_intercept = 1 / m * ( X(:, 1)' * (predictions - y) ) ;
-grad_rest = 1 / m * ( X(:, 2:end)' * (predictions - y) ) + (lambda / m) * theta_rest ;
-grad = [grad_intercept; grad_rest] ;
-
-
-
-
+grad = 1 / m * ( X' * (predictions - y) ) ; % unregularized gradient for logistic regression
+temp = theta ;
+temp(1) = 0 ;
+grad = grad + (lambda / m) * temp ; % reg term to be added to all gradients
 
 
 % =============================================================
 
-grad = grad(:);
+grad = grad(:) ;  % unroll i.e. matrix2vector conversion
+
 
 end

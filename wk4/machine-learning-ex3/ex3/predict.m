@@ -23,7 +23,7 @@ p = zeros(size(X, 1), 1);
 
 X = [ones(m,1) X] ;
 for i = 1:m
-    trainingExample = X(i, 1:end) ;
+    trainingExample = X(i, :) ;
     a1 = trainingExample' ;
     z2 = Theta1 * a1 ;
     a2 = sigmoid(z2) ;
