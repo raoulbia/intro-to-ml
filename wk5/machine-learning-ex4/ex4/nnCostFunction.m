@@ -62,49 +62,56 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-% Part 1
 
 X = [ones(m,1) X] ;
-
-% the double sum simply adds up the logistic regression costs calculated for each cell in the output layer
-
-% loop through training examples
-
 J = 0 ;
+big_delta_a2 = 0 ;
+big_delta_a1 = 0 ;
 for i = 1:m
-    trainingExample = X(i, :) ;
-    trainingExampleLabel = y(i) ;
-
-    % recode the labels as vectors
-    y_vec = zeros(num_labels, 1) ;
-    y_vec(trainingExampleLabel) = 1 ;
 
     % Forward Propagation
-    a1 = trainingExample' ;
-    z2 = Theta1 * a1 ;
+    a1 = X(i, :)' ; % row2column transpose
+    z2 = Theta1 * a1 ; % (25x401) x (401x1)
     a2 = sigmoid(z2) ;
     a2 = [1;a2] ; %add bias
-    z3 = Theta2 * a2 ;
+    z3 = Theta2 * a2 ; % (10x26) x (26x1)
     a3 = sigmoid(z3) ;
 
+
+    trainingExampleLabel = y(i) ;
+    y_vec = zeros(num_labels, 1) ; % recode the labels as vectors
+    y_vec(trainingExampleLabel) = 1 ;
     J = J + ( -y_vec' * log(a3) - (1-y_vec') * log(1-a3) ) ;
 
-endfor
-J = J / m ;
+    % Back Propagation
 
+    delta_a3 = a3 - y_vec ;
+    %delta_a2 = Theta2' * delta_a3 .* sigmoidGradient(z2) ; % Note the dot product...
+                                                            % (26x10) x (10x1) .* (25x1) >> not sure why we get the mismatch
+    delta_a2 = Theta2' * delta_a3 .* (a2.*(1-a2)) ;
+
+    big_delta_a2 = big_delta_a2 + (delta_a3 * a2') ;
+    big_delta_a1 = big_delta_a1 + (delta_a2(2:end) * a1') ;  % Note we removed te bias from delta_a2 !
+
+endfor
+
+
+% unregularized gradient
+Theta2_grad = big_delta_a2 / m ;
+Theta1_grad = big_delta_a1 / m ;
+
+% add regularization
+Theta2_grad = [Theta2_grad(:, 1:1) , Theta2_grad(:, 2:end) + (lambda / m) * Theta2(:, 2:end)] ;
+Theta1_grad = [Theta1_grad(:, 1:1) , Theta1_grad(:, 2:end) + (lambda / m) * Theta1(:, 2:end)] ;
+
+
+
+
+% Cost Function part 2
+J = J / m ;
 % add regularisation
 J = J + lambda / (2*m) * (sum( sum(Theta1(:, 2:end) .^2)) + sum(sum(Theta2(:, 2:end) .^2)) ) ;
 
-% gradient
-%Theta1_grad = sigmoidGradient(Theta1) ;
-%temp = Theta1 ;
-%temp(1) = 0 ;
-%Theta1_grad = Theta1_grad + (lambda / m) * temp ; % reg term to be added to all gradients
-
-%Theta2_grad = sigmoidGradient(Theta2) ;
-%temp = Theta2 ;
-%temp(1) = 0 ;
-%Theta2_grad = Theta2_grad + (lambda / m) * temp ; % reg term to be added to all gradients
 
 % -------------------------------------------------------------
 
