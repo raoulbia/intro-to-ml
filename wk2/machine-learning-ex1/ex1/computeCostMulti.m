@@ -19,7 +19,8 @@ errors = predictions - y ;
 
 % J = sum(errors .^2) / (2*m) ;
 
-% alternative: J = 1 / (2 * m) * ( (X * theta) - y )' * ( (X * theta) - y )
+% J = 1 / (2 * m) * ( (X * theta) - y )' * ( (X * theta) - y )
+
 J = ( errors' * errors ) / (2*m) ;
 
 
