@@ -54,13 +54,17 @@ error_val   = zeros(m, 1);
 % ---------------------- Sample Solution ----------------------
 % learningCurve(X, y, Xval, yval, lambda)
 
-lambda = 0 ;
+%lambda = 0 ;
 theta = [1 ; 1];
 for i = 1:m
+    X
+    X(1:i, :)
+    y
+    y(1:i)
     [J_train, grad_train] = linearRegCostFunction(X(1:i, :), y(1:i), theta, lambda) ;
-    [J_val, grad_val] = linearRegCostFunction(Xval, yval, theta, lambda) ;
-    error_train(i) = J_train
-    error_val(i) = J_val
+%    [J_val, grad_val] = linearRegCostFunction(Xval, yval, theta, lambda) ;
+%    error_train(i) = J_train
+%    error_val(i) = J_val
 
 
 
