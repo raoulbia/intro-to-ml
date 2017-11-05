@@ -7,7 +7,10 @@ function [theta] = trainLinearReg(X, y, lambda)
 %
 
 % Initialize Theta
-initial_theta = zeros(size(X, 2), 1); 
+
+% size(X,2) means get the size in terms of nbr. columns i.e. 1
+% zeros(size(X, 2), 1) means make a 1x1 matrix of zeros
+initial_theta = zeros(size(X, 2), 1) ; % IS A 1 x 1
 
 % Create "short hand" for the cost function to be minimized
 costFunction = @(t) linearRegCostFunction(X, y, t, lambda);

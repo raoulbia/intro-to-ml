@@ -35,6 +35,6 @@ grad = grad + (lambda / m) * temp ; % reg term to be added to all gradients
 
 % =========================================================================
 
-grad = grad(:);
+grad = grad(:)  ;
 
 end

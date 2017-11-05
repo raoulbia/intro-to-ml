@@ -52,17 +52,20 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
-% learningCurve(X, y, Xval, yval, lambda)
 
 
-for i = 1:m
-    i
-    theta = trainLinearReg([X(1:i, :)], y(1:i), lambda)
+for i=1:m
 
-    %[J_train, grad_train] = linearRegCostFunction(X(1:i, :), y(1:i), theta, lambda)
-    %[J_val, grad_val] = linearRegCostFunction(Xval, yval, theta, lambda) ;
-    %error_train(i) = J_train ;
-    %error_val(i) = J_val ;
+% now, for a particular train data subset we got an optimised theta which we used to
+    % get a training error value for that paticular train data subset
+    % we want to compare that error to the error we get when we apply the given theta to all of
+    % the validation data
+
+    theta = trainLinearReg(X(1:i,:), y(1:i), lambda);
+    error_train(i) = linearRegCostFunction(X(1:i,:), y(1:i), theta, 0);
+    error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
+
+end
 
 
 
