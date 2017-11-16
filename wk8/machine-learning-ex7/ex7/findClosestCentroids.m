@@ -28,7 +28,7 @@ for i = 1 : m
 
     for j = 1 : K
         ctroid = centroids(j, :);
-        distances(j) = sqrt( ( tr(1) - ctroid(1) ) ^2 + ( tr(2) - ctroid(2) ) ^2 ) ;
+        distances(j) = sum( (tr - ctroid) .^2 ) ;
     endfor
 
     [x, ix] = min(distances) ;
@@ -36,7 +36,7 @@ for i = 1 : m
 endfor
 
 
-
+% ids is a vector. each elem of this vector indicates to which centroid a given training example x is closest
 
 % =============================================================
 

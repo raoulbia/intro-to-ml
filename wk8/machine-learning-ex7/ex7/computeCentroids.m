@@ -27,7 +27,14 @@ centroids = zeros(K, n);
 %
 
 
+% K is the number of centroids we are currently using
+% centroids are 2-dimensional in the present case: initial_centroids = [3 3; 6 2; 8 5];
 
+for i = 1:K
+    filter_idx = (idx(:,1) == i) ;
+    relevant_tr = X(filter_idx,:)
+    [m n] = size(relevant_tr);
+    sum(relevant_tr) / m ;
 
 
 
