@@ -23,7 +23,7 @@ idx = zeros(size(X,1), 1);
 
 m = size(X, 1);
 for i = 1 : m
-    tr = X(i,:);
+    tr = X(i,:) ; % !! mst add comma colon otherwise it will select a single cell only
     distances = zeros(3,1);
 
     for j = 1 : K
@@ -31,13 +31,12 @@ for i = 1 : m
         distances(j) = sum( (tr - ctroid) .^2 ) ;
     endfor
 
-    [x, ix] = min(distances) ;
-    idx(i) = ix ;
+    [x, min_dist_idx] = min(distances) ;
+    idx(i) = min_dist_idx ;
 endfor
 
 
-% ids is a vector. each elem of this vector indicates to which centroid a given training example x is closest
-
 % =============================================================
 
+end
 

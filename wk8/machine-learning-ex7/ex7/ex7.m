@@ -37,7 +37,7 @@ initial_centroids = [3 3; 6 2; 8 5];
 
 % Find the closest centroids for the examples using the
 % initial_centroids
-idx = findClosestCentroids(X, initial_centroids) ;
+idx = findClosestCentroids(X, initial_centroids);
 
 fprintf('Closest centroids for the first 3 examples: \n')
 fprintf(' %d', idx(1:3));
@@ -65,7 +65,6 @@ fprintf('   [ 7.119387 3.616684 ]\n\n');
 fprintf('Program paused. Press enter to continue.\n');
 pause;
 
-
 %% =================== Part 3: K-Means Clustering ======================
 %  After you have completed the two functions computeCentroids and
 %  findClosestCentroids, you have all the necessary pieces to run the
@@ -90,7 +89,7 @@ initial_centroids = [3 3; 6 2; 8 5];
 % Run K-Means algorithm. The 'true' at the end tells our function to plot
 % the progress of K-Means
 [centroids, idx] = runkMeans(X, initial_centroids, max_iters, true);
-fprintf('\nK-Means Done.\n\n');
+%fprintf('\nK-Means Done.\n\n');
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
@@ -114,12 +113,13 @@ A = double(imread('bird_small.png'));
 A = A / 255; % Divide by 255 so that all values are in the range 0 - 1
 
 % Size of the image
-img_size = size(A);
+img_size = size(A) ;
 
 % Reshape the image into an Nx3 matrix where N = number of pixels.
 % Each row will contain the Red, Green and Blue pixel values
 % This gives us our dataset matrix X that we will use K-Means on.
 X = reshape(A, img_size(1) * img_size(2), 3);
+
 
 % Run your K-Means algorithm on this data
 % You should try different values of K and max_iters here
