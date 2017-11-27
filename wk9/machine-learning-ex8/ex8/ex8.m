@@ -54,7 +54,11 @@ pause
 fprintf('Visualizing Gaussian fit.\n\n');
 
 %  Estimate my and sigma2
+<<<<<<< HEAD
 [mu sigma2] = estimateGaussian(X);
+=======
+[mu sigma2] = estimateGaussian(X)
+>>>>>>> 84690106e2e90e402e3516dc35fe2a5ba87a5a77
 
 %  Returns the density of the multivariate normal at each data point (row) 
 %  of X
@@ -71,7 +75,8 @@ pause;
 %% ================== Part 3: Find Outliers ===================
 %  Now you will find a good epsilon threshold using a cross-validation set
 %  probabilities given the estimated Gaussian distribution
-% 
+
+%
 
 pval = multivariateGaussian(Xval, mu, sigma2);
 
@@ -91,31 +96,3 @@ hold off
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
-
-%% ================== Part 4: Multidimensional Outliers ===================
-%  We will now use the code from the previous part and apply it to a 
-%  harder problem in which more features describe each datapoint and only 
-%  some features indicate whether a point is an outlier.
-%
-
-%  Loads the second dataset. You should now have the
-%  variables X, Xval, yval in your environment
-load('ex8data2.mat');
-
-%  Apply the same steps to the larger dataset
-[mu sigma2] = estimateGaussian(X);
-
-%  Training set 
-p = multivariateGaussian(X, mu, sigma2);
-
-%  Cross-validation set
-pval = multivariateGaussian(Xval, mu, sigma2);
-
-%  Find the best threshold
-[epsilon F1] = selectThreshold(yval, pval);
-
-fprintf('Best epsilon found using cross-validation: %e\n', epsilon);
-fprintf('Best F1 on Cross Validation Set:  %f\n', F1);
-fprintf('   (you should see a value epsilon of about 1.38e-18)\n');
-fprintf('   (you should see a Best F1 value of 0.615385)\n');
-fprintf('# Outliers found: %d\n\n', sum(p < epsilon));
